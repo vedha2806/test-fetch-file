@@ -1,0 +1,1062 @@
+GRAPHS
+1. Produce a histogram that visually represents the distribution shown in the image. The data is 1500 samples from a logistic distribution. Configure bins (30), edge colors (white), alpha (0.8), and add a legend. Label the axes (”Value”, ”Frequency”) and title (”New Data Distribution”). Data: ‘data = np.random.logistic(loc=0, scale=1.5, size=1500)‘
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(0)
+data = np.random.logistic(loc=0, scale=1.5, size=1500)
+plt.figure(figsize=(8, 5))
+plt.hist(data, bins=30, edgecolor='white', alpha=0.8, label='New Data Distribution')
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.title("New Data Distribution")
+plt.legend()
+plt.tight_layout()
+plt.savefig("/mnt/data/new_data_distribution_hist.png", dpi=150)
+plt.close()
+print("Saved histogram to /mnt/data/new_data_distribution_hist.png")
+  
+#SCATTER PLOT
+2)Recreate the following scatter plot using Matplotlib. The data consists of 75 random points from a normal distribution for Feature A and Feature B, with varying sizes (50-300) and specific colors (’red’, ’blue’, ’green’, ’purple’). Ensure the correct ’X’ markers, colors, a color bar (labeled ”Color intensity”), and a legend are included. Data: ‘x = np.random.randn(75)‘, ‘y = np.random.randn(75)‘, ‘sizes = np.random.randint(50, 300, 75)‘, ‘colors = np.random.choice([’red’, ’blue’, ’green’, ’purple’], 75)‘
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(0)
+x = np.random.randn(75)
+y = np.random.randn(75)
+sizes = np.random.randint(50, 300, 75)
+colors = np.random.choice(['red', 'blue', 'green', 'purple'], 75)
+plt.figure(figsize=(8, 5))
+scatter = plt.scatter(x, y, s=sizes, c=colors, marker='X', alpha=0.8, edgecolor='black')
+plt.title("Scatter Plot of Feature A vs Feature B")
+plt.xlabel("Feature A")
+plt.ylabel("Feature B")
+unique_colors = ['red', 'blue', 'green', 'purple']
+for color in unique_colors:
+    plt.scatter([], [], color=color, label=color.capitalize(), s=100, marker='X')
+plt.legend(title="Color Categories")
+# ✅ FIXED: Attach colorbar to current axes
+sm = plt.cm.ScalarMappable(cmap='viridis')
+sm.set_array([])
+cbar = plt.colorbar(sm, ax=plt.gca())  # <-- added ax=plt.gca()
+cbar.set_label("Color Intensity")
+plt.tight_layout()
+plt.show()
+
+  2) Generate a scatter plot of two correlated variables and superimpose a fitted line. x values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] y values: [1.9, 4.1, 6.3, 7.8, 10.4, 12.1, 13.8, 15.5, 17.2, 20.1]
+  import numpy as np
+import matplotlib.pyplot as plt
+x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+y = np.array([1.9, 4.1, 6.3, 7.8, 10.4, 12.1, 13.8, 15.5, 17.2, 20.1])
+# Fit a linear regression line (y = m*x + c)
+coefficients = np.polyfit(x, y, 1)   # 1 means first-degree polynomial (straight line)
+m, c = coefficients
+y_fit = m * x + c
+plt.figure(figsize=(8, 5))
+plt.scatter(x, y, color='blue', label='Data points', s=70)
+plt.plot(x, y_fit, color='red', label=f'Fitted line: y = {m:.2f}x + {c:.2f}', linewidth=2)
+plt.xlabel("X values")
+plt.ylabel("Y values")
+plt.title("Scatter Plot with Fitted Line")
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
+  
+--------------------------------------------------------
+#PIE CHART
+3)Create a pie chart that replicates the proportions and labels in the image. The data represents proportions for different fruit categories: ’Apples’, ’Bananas’, ’Cherries’, ’Dates’, ’Elderberries’. Make sure to explode the ’Cherries’ slice. Ensure proper labels, autopct, shadow, start angle, and colors are used. Data: ‘sizes = [25, 20, 35, 10, 10]‘, ‘labels = [’Apples’, ’Bananas’, ’Cherries’, ’Dates’, ’Elderberries’]‘, ‘explode = (0, 0, 0.2, 0, 0)‘
+  import matplotlib.pyplot as plt
+
+# Data for the pie chart
+sizes = [25, 20, 35, 10, 10]
+labels = ['Apples', 'Bananas', 'Cherries', 'Dates', 'Elderberries']
+explode = (0, 0, 0.2, 0, 0)  # explode only the 'Cherries' slice
+# Simple color names
+colors = ['red', 'yellow', 'pink', 'brown', 'purple']
+# Create the pie chart
+plt.figure(figsize=(7, 7))
+plt.pie(
+    sizes,
+    labels=labels,
+    autopct='%1.1f%%',
+    startangle=140,
+    explode=explode,
+    colors=colors,
+    shadow=True
+)
+plt.title("Fruit Category Distribution")
+plt.tight_layout()
+plt.show()
+--------------------------------------------------------  
+  4)from matplotlib import pyplot as plt
+import numpy as np
+# Creating dataset
+cars = ['AUDI', 'BMW', 'FORD',
+        'TESLA', 'JAGUAR', 'MERCEDES']
+data = [23, 17, 35, 29, 12, 41]
+fig = plt.figure(figsize=(10, 7))
+plt.pie(data, labels=cars)
+plt.show()
+------------------------------------------------------
+#LINE PLOT
+Recreate the following line plot showing y = sin(x), y = cos(x), and y = sin(x) + cos(x) for x values from 0 to 15. Label the axes,
+add a title, grid, and a legend. Data: ‘x = np.linspace(0, 15, 1000)‘, ‘y1 = np.sin(x)‘, ‘y2 = np.cos(x)‘, ‘y3 = np.sin(x) + np.cos(x)‘
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate data
+x = np.linspace(0, 15, 1000)
+y1 = np.sin(x)
+y2 = np.cos(x)
+y3 = np.sin(x) + np.cos(x)
+diff = np.abs(y1 - y2)
+indices = np.where(diff < 0.01)[0]  # find points where difference is very small
+x_intersections = x[indices]
+y_intersections = y1[indices]
+plt.figure(figsize=(8, 5))
+plt.plot(x, y1, label='sin(x)', color='blue', linewidth=2)
+plt.plot(x, y2, label='cos(x)', color='red', linewidth=2)
+plt.plot(x, y3, label='sin(x) + cos(x)', color='green', linestyle='--', linewidth=2)
+plt.scatter(x_intersections, y_intersections, color='black', s=50, zorder=5, label='Intersections')
+plt.xlabel("X values")
+plt.ylabel("Y values")
+plt.title("sin(x), cos(x), and sin(x) + cos(x) with Intersection Points")
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+  2) Generate a line plot of sin(x) and cos(x) for values of x between 0 and 2pi. Generate x values using NumPy:
+x = np.linspace (0, 2*np.pi, 100)
+import numpy as np
+import matplotlib.pyplot as plt
+# Generate 100 x-values between 0 and 2π
+x = np.linspace(0, 2 * np.pi, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+plt.figure(figsize=(8, 5))
+plt.plot(x, y_sin, label='sin(x)', color='blue', linewidth=2)
+plt.plot(x, y_cos, label='cos(x)', color='red', linewidth=2)
+plt.xlabel('x values (radians)')
+plt.ylabel('y values')
+plt.title('Plot of sin(x) and cos(x) between 0 and 2π')
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
+
+3)Plot multiple mathematical functions (y = x^2, y = x^3) and do the following:
+• Plot the functions on the same set of axes for x values ranging from -5 to 5 with sufficient resolution (e.g., 100 points).
+• Use different colors and line styles for each function to distinguish them visually.
+• Add a legend that clearly labels each curve.
+• Set an informative title, x-axis label, and y-axis label.
+• Add annotations on the plot to mark and label the intersection point(s) of the two curves.
+Customize the grid and tick marks to improve plot readability.
+Save the plot as both a high-resolution PNG (dpi 300) and a vector PDF file with proper layout settings.
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(-5, 5, 100)
+y1 = x ** 2
+y2 = x ** 3
+plt.figure(figsize=(8, 6))
+plt.plot(x, y1, label='y = x²', color='blue', linestyle='--', linewidth=2)
+plt.plot(x, y2, label='y = x³', color='red', linestyle='-', linewidth=2)
+intersection_x = np.array([0, 1])   # from solving x² = x³ → x²(x - 1) = 0 → x = 0, 1
+intersection_y = intersection_x ** 2
+
+# Annotate the intersection points
+for i in range(len(intersection_x)):
+    plt.scatter(intersection_x[i], intersection_y[i], color='black', zorder=5)
+    plt.text(intersection_x[i] + 0.2, intersection_y[i],
+             f'({intersection_x[i]}, {intersection_y[i]})',
+             fontsize=10, color='black')
+plt.xlabel('X values')
+plt.ylabel('Y values')
+plt.title('Comparison of y = x² and y = x³ with Intersection Points')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.xticks(np.arange(-5, 6, 1))  # ticks from -5 to 5
+plt.yticks(np.arange(-100, 130, 20))
+plt.tight_layout()
+plt.savefig("functions_comparison.png", dpi=300)   # high-resolution PNG
+plt.savefig("functions_comparison.pdf")            # vector PDF
+plt.show()
+print("✅ Saved plots as 'functions_comparison.png' and 'functions_comparison.pdf'")
+
+
+#SUBPLOTS
+  1)Create subplots showing different plot types (line, scatter, histogram, bar) in one figure. Use small arrays for each plot typе: Line: x = [1, 2, 3, 4], y = [10, 15, 13, 18] Scatter: = [1, 2, 3, 4], y = [12, 17, 14, 19] Histogram: 50 random integers between 1 and 30 Bar: Categories = ['A', 'B', 'C'], values = [5, 7, 3]
+    import numpy as np
+import matplotlib.pyplot as plt
+
+# Data for each plot
+x_line = [1, 2, 3, 4]
+y_line = [10, 15, 13, 18]
+
+x_scatter = [1, 2, 3, 4]
+y_scatter = [12, 17, 14, 19]
+
+hist_data = np.random.randint(1, 30, 50)  # 50 random integers between 1 and 30
+
+categories = ['A', 'B', 'C']
+bar_values = [5, 7, 3]
+
+# Create a 2x2 subplot grid
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+# 1️⃣ Line Plot
+axes[0, 0].plot(x_line, y_line, color='blue', marker='o', linestyle='--')
+axes[0, 0].set_title("Line Plot")
+axes[0, 0].set_xlabel("X values")
+axes[0, 0].set_ylabel("Y values")
+axes[0, 0].grid(True, linestyle='--', alpha=0.6)
+# 2️⃣ Scatter Plot
+axes[0, 1].scatter(x_scatter, y_scatter, color='red', s=70)
+axes[0, 1].set_title("Scatter Plot")
+axes[0, 1].set_xlabel("X values")
+axes[0, 1].set_ylabel("Y values")
+axes[0, 1].grid(True, linestyle='--', alpha=0.6)
+# 3️⃣ Histogram
+axes[1, 0].hist(hist_data, bins=10, color='green', edgecolor='black', alpha=0.7)
+axes[1, 0].set_title("Histogram")
+axes[1, 0].set_xlabel("Value")
+axes[1, 0].set_ylabel("Frequency")
+axes[1, 0].grid(True, linestyle='--', alpha=0.6)
+# 4️⃣ Bar Chart
+axes[1, 1].bar(categories, bar_values, color=['purple', 'orange', 'cyan'])
+axes[1, 1].set_title("Bar Chart")
+axes[1, 1].set_xlabel("Category")
+axes[1, 1].set_ylabel("Value")
+plt.tight_layout()
+plt.savefig("subplots_combined.png", dpi=300)
+plt.show()
+print("✅ Subplots created and saved as 'subplots_combined.png'")
+
+
+#GROUPED BAR CHART
+  1)Create categorical plots (horizontal bar chart, grouped bars) for comparing groups visually.
+    import matplotlib.pyplot as plt
+import numpy as np
+# Data
+groups = ['X', 'Y', 'Z']
+category1 = [30, 40, 50]
+category2 = [55, 60, 65]
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+# 1️⃣ Horizontal Bar Chart
+axes[0].barh(groups, category1, color='skyblue', label='Category 1')
+axes[0].barh(groups, category2, color='lightgreen', left=category1, label='Category 2')
+axes[0].set_title('Horizontal Bar Chart')
+axes[0].set_xlabel('Values')
+axes[0].set_ylabel('Groups')
+axes[0].legend()
+# 2️⃣ Grouped Bar Chart
+bar_width = 0.35
+x = np.arange(len(groups))
+axes[1].bar(x - bar_width/2, category1, width=bar_width, color='steelblue', label='Category 1')
+axes[1].bar(x + bar_width/2, category2, width=bar_width, color='orange', label='Category 2')
+axes[1].set_title('Grouped Bar Chart')
+axes[1].set_xlabel('Groups')
+axes[1].set_ylabel('Values')
+axes[1].set_xticks(x)
+axes[1].set_xticklabels(groups)
+axes[1].legend()
+# Layout adjustment
+plt.tight_layout()
+plt.show()
+
+  #BAR CHART
+  1)Generate a bar chart that matches the one shown below. The categories are ’Product X’, ’Product Y’, ’Product Z’, ’Product A’, ’Product B’, ’Product C’ with corresponding values. Include appropriate labels (”Categories”, ”Values”), a title (”Sales Figures by Product”), rotated x-axis labels, and a legend. Data: ‘categories = [’Product X’, ’Product Y’, ’Product Z’, ’Product A’, ’Product B’, ’Product C’]‘, ‘values = [55, 30, 70, 45, 20, 60]‘
+  import matplotlib.pyplot as plt
+categories = ['Product X', 'Product Y', 'Product Z', 'Product A', 'Product B', 'Product C']
+values = [55, 30, 70, 45, 20, 60]
+
+# Different colors for each bar
+colors = ['skyblue', 'lightgreen', 'orange', 'violet', 'gold', 'lightcoral']
+plt.figure(figsize=(8,5))
+bars = plt.bar(categories, values, color=colors, edgecolor='black', label='Sales Value')
+
+# Add value labels on top of each bar
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2, height + 1,
+             str(height), ha='center', va='bottom', fontsize=10, fontweight='bold')
+# Labels and title
+plt.title('Sales Figures by Product', fontsize=14, fontweight='bold')
+plt.xlabel('Categories', fontsize=12)
+plt.ylabel('Values', fontsize=12)
+plt.legend()
+plt.xticks(rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+------------------------------------------------------
+  BASIC GRAPHS
+  1)LINEPLOT
+  import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+plt.plot(x, y, color='blue', linewidth=2, label='sin(x)')
+plt.title('Basic Line Plot')
+plt.xlabel('X values')
+plt.ylabel('Y values')
+plt.legend()
+plt.grid(True)
+plt.show()
+  2)SCATTER
+  x = [1, 2, 3, 4, 5]
+y = [2, 4, 5, 6, 7]
+
+plt.scatter(x, y, color='green', s=80, marker='o')
+plt.title('Scatter Plot Example')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.grid(True)
+plt.show()
+  3)BAR
+  categories = ['A', 'B', 'C', 'D']
+values = [25, 40, 35, 30]
+
+plt.bar(categories, values, color='orange')
+plt.title('Bar Chart Example')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.show()
+  4)HORI BAR
+  categories = ['Apple', 'Banana', 'Cherry']
+values = [50, 30, 40]
+
+plt.barh(categories, values, color='purple')
+plt.title('Horizontal Bar Chart')
+plt.xlabel('Quantity')
+plt.ylabel('Fruit')
+plt.show()
+  5)PIE CHART
+  labels = ['Apples', 'Bananas', 'Cherries', 'Dates']
+sizes = [25, 35, 20, 20]
+explode = (0, 0.1, 0, 0)
+
+plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, explode=explode, shadow=True)
+plt.title('Fruit Distribution')
+plt.show()
+  6)HISTO
+  import numpy as np
+
+data = np.random.randn(1000)
+
+plt.hist(data, bins=20, color='skyblue', edgecolor='black')
+plt.title('Histogram Example')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.show()
+    7)MULTIPLE LINE CHART
+    x = np.linspace(0, 10, 100)
+plt.plot(x, np.sin(x), label='sin(x)')
+plt.plot(x, np.cos(x), label='cos(x)')
+plt.title('Multiple Line Plot')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.grid(True)
+plt.show()
+    8)BOX PLOT
+    data = [np.random.randn(100), np.random.randn(100) + 1]
+plt.boxplot(data, patch_artist=True)
+plt.title('Box Plot Example')
+plt.xlabel('Group')
+plt.ylabel('Values')
+plt.show()
+
+--------------------------------------------------------------------------
+PART -A
+    Q1)FIND ERRORS
+    # Corrected code for reversing and manipulating lists
+my_list = [10, 20, 30, 40, 50]
+
+# Fix 1: Use slicing or reversed() instead of reverse()
+reversed_list = list(reversed(my_list))  # Creates a new reversed list
+
+print("Original list:", my_list)
+print("Reversed list (should be [50, 40, 30, 20, 10]):", reversed_list)
+
+# Fix 2: reversed_list is a list, so we can append safely
+reversed_list.append(60)
+
+another_list = [70, 80]
+new_list = reversed_list + another_list  # ✅ concatenation works fine
+
+print("Modified reversed list:", reversed_list)
+print("Concatenated list:", new_list)
+
+# Fix 3: Append tuple to my_list
+my_tuple = (1, 2, 3)
+my_list.append(my_tuple)
+
+print("Original list after appending tuple:", my_list)
+
+# Fix 4: Correct slicing
+subset = reversed_list[1:3]
+print("Subset from reversed list:", subset)
+
+Q2)Library Simulation Function
+      class Book:
+    def __init__(self, book_id, title, author, total_copies, publication_year):
+        self.book_id = book_id
+        self.title = title
+        self.author = author
+        self.total_copies = total_copies
+        self.publication_year = publication_year
+        self.available_copies = total_copies
+
+    def lend_book(self):
+        if self.available_copies > 0:
+            self.available_copies -= 1
+            return True
+        return False
+
+    def return_book(self):
+        self.available_copies += 1
+
+
+class Member:
+    def __init__(self, member_id, name, email, membership_type, active=True, checkins=0):
+        self.member_id = member_id
+        self.name = name
+        self.email = email
+        self.membership_type = membership_type
+        self.active = active
+        self.checkins = checkins
+
+
+class Library:
+    def __init__(self):
+        self.books = {}
+        self.members = {}
+
+    def add_book(self, book):
+        self.books[book.book_id] = book
+
+    def register_member(self, member):
+        self.members[member.member_id] = member
+
+    def lend_book(self, book_id, member_id):
+        if book_id not in self.books:
+            print(f"Book ID {book_id} not found.")
+            return
+        if member_id not in self.members:
+            print(f"Member ID {member_id} not found.")
+            return
+
+        book = self.books[book_id]
+        if book.lend_book():
+            print(f"{self.members[member_id].name} borrowed '{book.title}'.")
+        else:
+            print(f"No copies of '{book.title}' are available.")
+
+    def return_book(self, book_id, member_id):
+        if book_id in self.books:
+            self.books[book_id].return_book()
+            print(f"{self.members[member_id].name} returned '{self.books[book_id].title}'.")
+
+    def display_status(self):
+        print("\n--- Library Books ---")
+        for b in self.books.values():
+            print(f"{b.title} ({b.available_copies}/{b.total_copies} available)")
+
+        print("\n--- Library Members ---")
+        for m in self.members.values():
+            print(f"{m.name} ({'Active' if m.active else 'Inactive'})")
+
+
+def manage_library_operations(library, book_data, member_data):
+    # Add books
+    for b in book_data:
+        library.add_book(Book(**b))
+
+    # Register members
+    for m in member_data:
+        library.register_member(Member(**m))
+
+    # Simulate lending and returning
+    library.lend_book(1, 101)
+    library.lend_book(2, 101)
+    library.lend_book(3, 102)
+    library.return_book(1, 101)
+    library.lend_book(4, 102)  # Unsuccessful - doesn’t exist
+
+    library.display_status()
+
+
+# Demonstration
+book_data = [
+    {"book_id": 1, "title": "Python 101", "author": "John Doe", "total_copies": 2, "publication_year": 2020},
+    {"book_id": 2, "title": "AI Revolution", "author": "Jane Smith", "total_copies": 1, "publication_year": 2022},
+    {"book_id": 3, "title": "Data Science Handbook", "author": "Mike Ross", "total_copies": 3, "publication_year": 2021}
+]
+
+member_data = [
+    {"member_id": 101, "name": "Alice", "email": "alice@mail.com", "membership_type": "Premium"},
+    {"member_id": 102, "name": "Bob", "email": "bob@mail.com", "membership_type": "Regular"}
+]
+
+library = Library()
+manage_library_operations(library, book_data, member_data)
+
+Q3)NumPy + SciPy Statistical Operations
+      import numpy as np
+from scipy import stats
+
+# Create a 6x6 random data matrix
+data_matrix = np.random.rand(6, 6)
+
+# Row-wise calculations
+row_mean = np.mean(data_matrix, axis=1)
+row_median = np.median(data_matrix, axis=1)
+row_std = np.std(data_matrix, axis=1)
+
+# Column-wise calculations
+col_mean = np.mean(data_matrix, axis=0)
+col_median = np.median(data_matrix, axis=0)
+col_std = np.std(data_matrix, axis=0)
+
+# Mode of each row
+mode_result = stats.mode(data_matrix, axis=1, keepdims=True)
+
+# Descriptive statistics
+desc_stats = stats.describe(data_matrix, axis=None)
+
+# Boolean indexing
+greater_75 = data_matrix[data_matrix > 0.75]
+
+# Replace values less than 0.25 with -1
+data_matrix[data_matrix < 0.25] = -1
+
+# --- Display results ---
+print("Data Matrix:\n", data_matrix)
+print("\nRow Means:", row_mean)
+print("Row Medians:", row_median)
+print("Row Std Dev:", row_std)
+
+print("\nColumn Means:", col_mean)
+print("Column Medians:", col_median)
+print("Column Std Dev:", col_std)
+
+print("\nRow Modes:\n", mode_result.mode)
+print("Descriptive Statistics:", desc_stats)
+
+print("\nValues > 0.75:", greater_75)
+---------------------------------------------------------------------
+  PART-B
+  Q1)Fix and Explain the Python Code
+  # --- Part 1: Print even numbers ---
+count = 0
+while count < 20:
+    if count % 2 == 0:
+        print(count)
+    count += 1
+
+# --- Part 2: Demonstrate continue and break ---
+for i in range(5):
+    if i == 2:
+        continue     # skips when i == 2
+    elif i == 4:
+        break        # stops when i == 4
+    print(f"Loop iteration: {i}")
+
+# --- Part 3: Function to print odd numbers ---
+def print_odd_numbers(limit):
+    for j in range(limit):
+        if j % 2 == 0:
+            continue    # skip even numbers
+        print(j)
+
+print_odd_numbers(10)
+
+Q2)Gym “Member” Class
+          from datetime import date
+
+class Member:
+    def __init__(self, member_id, name, email, membership_type="Standard", active=True):
+        self.member_id = member_id
+        self.name = name
+        self.email = email
+        self.membership_type = membership_type
+        self.active = active
+        self.checkins = []   # store dates of check-ins
+
+    def check_in(self):
+        """Adds today's date if membership is active."""
+        if self.active:
+            today = str(date.today())
+            self.checkins.append(today)
+            print(f"{self.name} checked in on {today}.")
+        else:
+            print(f"{self.name} cannot check in — membership inactive.")
+
+    def deactivate_membership(self):
+        self.active = False
+        print(f"{self.name}'s membership has been deactivated.")
+
+    def reactivate_membership(self):
+        self.active = True
+        print(f"{self.name}'s membership has been reactivated.")
+
+    def get_checkin_history(self):
+        return self.checkins
+
+
+# --- Demonstration ---
+m1 = Member("M101", "Alice", "alice@gym.com", "Premium")
+m2 = Member("M102", "Bob", "bob@gym.com")
+
+m1.check_in()
+m2.check_in()
+
+m2.deactivate_membership()
+m2.check_in()
+m2.reactivate_membership()
+m2.check_in()
+
+print("\nAlice Check-ins:", m1.get_checkin_history())
+print("Bob Check-ins:", m2.get_checkin_history())
+
+Q3)Pandas + SciPy Statistical Analysis
+          import pandas as pd
+from scipy import stats
+
+# --- Step 1: Create DataFrames ---
+customers_data = {
+    'CustomerID': [1, 2, 3, 4],
+    'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'City': ['New York', 'Los Angeles', 'Chicago', 'New York'],
+    'Age': [30, 24, 35, 29]
+}
+customers_df = pd.DataFrame(customers_data)
+
+transactions_data = {
+    'TransactionID': [101, 102, 103, 104, 105, 106],
+    'CustomerID': [1, 2, 1, 3, 5, 4],
+    'Amount': [150, 200, 120, 300, 80, 250]
+}
+transactions_df = pd.DataFrame(transactions_data)
+
+# --- Step 2: Merge using INNER JOIN ---
+merged_data = pd.merge(customers_df, transactions_df, on='CustomerID', how='inner')
+print("Merged Data:\n", merged_data)
+
+# --- Step 3: Total amount spent by customers from each city ---
+total_by_city = merged_data.groupby('City')['Amount'].sum()
+print("\nTotal Amount spent by City:\n", total_by_city)
+
+# --- Step 4: Identify unmatched CustomerIDs ---
+unmatched = set(transactions_df['CustomerID']) - set(customers_df['CustomerID'])
+print("\nCustomerIDs without match in customers_df:", unmatched)
+
+# --- Step 5: ANOVA test across cities ---
+# Group transaction amounts by city
+city_groups = [merged_data[merged_data['City'] == c]['Amount'] for c in merged_data['City'].unique()]
+f_stat, p_value = stats.f_oneway(*city_groups)
+print("\nANOVA Results: F =", f_stat, ", p-value =", p_value)
+
+# Interpretation
+if p_value < 0.05:
+    print("→ Reject Null Hypothesis: Average spending differs across cities.")
+else:
+    print("→ Fail to Reject Null Hypothesis: No significant difference across cities.")
+
+# --- Step 6: Spearman correlation between Age and Amount ---
+corr, p_val_corr = stats.spearmanr(merged_data['Age'], merged_data['Amount'])
+print("\nSpearman correlation between Age and Amount:", corr)
+print("p-value:", p_val_corr)
+
+if p_val_corr < 0.05:
+    print("→ Significant correlation between age and spending.")
+else:
+    print("→ No significant correlation between age and spending.")
+------------------------------------------------------------------------------------------------------
+
+  PART-C
+  Q1)ERRORS
+  def categorize_number(num):
+    try:
+        num = float(num)  # Convert input to numeric
+        if num > 0:
+            return "Positive"
+        elif num == 0:
+            return "Zero"
+        else:
+            return "Negative"
+    finally:
+        print("Function ended")
+
+# Test
+input_num = "-5"
+print("Result:", categorize_number(input_num))
+          ii)Corrected check_age function
+def check_age(age):
+    if age < 13:
+        print("Child")
+    elif 13 <= age < 18:
+        print("Teen")
+    else:
+        print("Adult")
+
+# Test cases
+check_age(12)
+check_age(16)
+check_age(25)
+
+Q2)UNIVERSITY DEPT CLASS
+      class Department:
+    def __init__(self, department_id, name, head):
+        self.department_id = department_id
+        self.name = name
+        self.head = head
+        self.courses = []
+        self.faculty = []
+
+    def add_course(self, course_code):
+        if course_code not in self.courses:
+            self.courses.append(course_code)
+            print(f"Course '{course_code}' added successfully to {self.name}.")
+        else:
+            print(f"Course '{course_code}' already exists in {self.name}.")
+
+    def add_faculty(self, faculty_name):
+        if faculty_name not in self.faculty:
+            self.faculty.append(faculty_name)
+            print(f"Faculty '{faculty_name}' added successfully to {self.name}.")
+        else:
+            print(f"Faculty '{faculty_name}' already exists in {self.name}.")
+
+    def display_department_info(self):
+        print("\n--- Department Information ---")
+        print(f"Department ID: {self.department_id}")
+        print(f"Name: {self.name}")
+        print(f"Head: {self.head}")
+        print(f"Courses Offered: {', '.join(self.courses) if self.courses else 'None'}")
+        print(f"Faculty Members: {', '.join(self.faculty) if self.faculty else 'None'}")
+
+# Demonstration
+cs_dept = Department("CS", "Computer Science", "Dr. Priya")
+ee_dept = Department("EE", "Electrical Engineering", "Dr. Raman")
+
+# Add courses and faculty
+cs_dept.add_course("CS101")
+cs_dept.add_course("CS201")
+cs_dept.add_faculty("Prof. Meena")
+cs_dept.add_faculty("Prof. Arjun")
+
+ee_dept.add_course("EE101")
+ee_dept.add_course("EE205")
+ee_dept.add_faculty("Prof. Kiran")
+ee_dept.add_faculty("Prof. Divya")
+
+# Display info
+cs_dept.display_department_info()
+ee_dept.display_department_info()
+
+Q3)SENSOR DATA ANAYSIS
+          import pandas as pd
+from scipy import stats
+
+# Simulated CSV loading (you can replace this with pd.read_csv('sensor_data_morning.csv'))
+sensor_data_morning = pd.DataFrame({
+    'Timestamp': ['2025-11-08 08:00:00', '2025-11-08 08:05:00', '2025-11-08 08:10:00', '2025-11-08 08:15:00'],
+    'SensorID': ['A', 'B', 'A', 'C'],
+    'Reading': [25.5, 18.2, 26.1, 22.0]
+})
+
+sensor_data_evening = pd.DataFrame({
+    'Timestamp': ['2025-11-08 18:00:00', '2025-11-08 18:05:00', '2025-11-08 18:10:00', '2025-11-08 18:15:00'],
+    'SensorID': ['A', 'B', 'D', 'C'],
+    'Reading': [24.9, 19.5, 21.0, 23.5]
+})
+
+# Concatenate
+total_data = pd.concat([sensor_data_morning, sensor_data_evening], ignore_index=True)
+print("\nCombined Sensor Data:")
+print(total_data)
+
+# Average Reading per Sensor
+avg_readings = total_data.groupby('SensorID')['Reading'].mean()
+print("\nAverage Reading per Sensor:")
+print(avg_readings)
+
+# Sensor with highest average
+max_sensor = avg_readings.idxmax()
+print(f"\nSensor with Highest Average Reading: {max_sensor}")
+
+# Pearson correlation between A and B
+sensor_a = total_data[total_data['SensorID'] == 'A']['Reading']
+sensor_b = total_data[total_data['SensorID'] == 'B']['Reading']
+corr, p_value = stats.pearsonr(sensor_a[:len(sensor_b)], sensor_b)
+print(f"\nPearson Correlation (A vs B): {corr:.3f}, p-value = {p_value:.3f}")
+if p_value < 0.05:
+    print("→ Significant correlation.")
+else:
+    print("→ No significant correlation.")
+
+# Shapiro-Wilk normality test for Sensor C
+sensor_c = total_data[total_data['SensorID'] == 'C']['Reading']
+shapiro_stat, shapiro_p = stats.shapiro(sensor_c)
+print(f"\nShapiro-Wilk Test for Sensor C: W={shapiro_stat:.3f}, p-value={shapiro_p:.3f}")
+if shapiro_p > 0.05:
+    print("→ Data appears normally distributed.")
+else:
+    print("→ Data does NOT follow a normal distribution.")
+
+# Top 3 sensors by total reading
+top_sensors = total_data.groupby('SensorID')['Reading'].sum().nlargest(3)
+print("\nTop 3 Sensors by Total Reading:")
+print(top_sensors)
+-----------------------------------------------------------------------------------------------------
+  PART-D
+  Q1)1) Fix the dictionary code (KeyErrors and other issues)
+  # Fixed dictionary code
+my_dict = {"name": "Alice", "age": 30, "Occupation": "Engineer"}
+
+# 1) Safe access with .get() to avoid KeyError
+print("city:", my_dict.get("city", "Not provided"))   # returns "Not provided" if missing
+
+# 2) Add new key - use assignment or update
+my_dict["email"] = "alice@example.com"
+# or: my_dict.update({"email": "alice@example.com"})
+
+# 3) get with default (case-sensitive keys!)
+value = my_dict.get("AGE", 0)   # "AGE" != "age", so default 0 returned
+print("AGE (case-sensitive):", value)
+
+# 4) Iterate correctly over key, value pairs
+for k, v in my_dict.items():
+    print(f"{k}: {v}")
+
+# 5) Correct use of update() for team_scores
+team_scores = {"Red": 100, "Blue": 120, "Green": 90}
+team_scores.update({"Yellow": 110})   # update expects a dict or iterable of pairs
+print("Team Scores after update:", team_scores)
+
+# 6) Safe access to possibly-missing key
+score = team_scores.get("Purple")     # returns None if missing
+if score is None:
+    print("Purple team not found.")
+else:
+    print("Purple team score:", score)
+
+# 7) Delete a key properly (use pop or del), and handle missing key
+removed = team_scores.pop("Green", None)  # removes if exists, returns value or None
+if removed is not None:
+    print("Removed Green with score", removed)
+else:
+    print("Green not found to remove")
+print("Team Scores after deletion:", team_scores)
+
+  Q2)Library class that manages Book and Member objects
+    # Library system implementation
+from dataclasses import dataclass, field
+
+@dataclass
+class Book:
+    book_id: str
+    title: str
+    author: str
+    total_copies: int
+    publication_year: int
+    available_copies: int = field(init=False)
+    borrowed_by: list = field(default_factory=list)
+
+    def __post_init__(self):
+        self.available_copies = int(self.total_copies)
+
+    def borrow_book(self, member_id):
+        if self.available_copies <= 0:
+            return False, "No copies available"
+        self.available_copies -= 1
+        self.borrowed_by.append(member_id)
+        return True, f"{self.title} lent to {member_id}"
+
+    def return_book(self, member_id):
+        if member_id not in self.borrowed_by:
+            return False, "This member did not borrow this book"
+        self.borrowed_by.remove(member_id)
+        self.available_copies += 1
+        return True, f"{self.title} returned by {member_id}"
+
+@dataclass
+class Member:
+    member_id: str
+    name: str
+    email: str
+    active: bool = True
+    borrowed_books: list = field(default_factory=list)
+
+class Library:
+    def __init__(self):
+        self.books = {}   # book_id -> Book
+        self.members = {} # member_id -> Member
+
+    def add_book(self, book: Book):
+        if book.book_id in self.books:
+            # merge copies if book exists
+            existing = self.books[book.book_id]
+            existing.total_copies += book.total_copies
+            existing.available_copies += book.total_copies
+            print(f"Book {book.book_id} exists — updated copies.")
+        else:
+            self.books[book.book_id] = book
+            print(f"Added book {book.book_id}: {book.title}")
+
+    def register_member(self, member: Member):
+        if member.member_id in self.members:
+            print(f"Member {member.member_id} already registered.")
+        else:
+            self.members[member.member_id] = member
+            print(f"Registered member {member.member_id}: {member.name}")
+
+    def lend_book(self, book_id, member_id):
+        book = self.find_book(book_id)
+        member = self.find_member(member_id)
+        if not book:
+            print(f"Cannot lend: Book {book_id} not found.")
+            return
+        if not member:
+            print(f"Cannot lend: Member {member_id} not found.")
+            return
+        if not member.active:
+            print(f"Cannot lend: Member {member_id} is inactive.")
+            return
+        ok, msg = book.borrow_book(member_id)
+        if ok:
+            member.borrowed_books.append(book_id)
+            print("LEND SUCCESS:", msg)
+        else:
+            print("LEND FAILED:", msg)
+
+    def receive_book(self, book_id, member_id):
+        book = self.find_book(book_id)
+        member = self.find_member(member_id)
+        if not book or not member:
+            print("Cannot receive: book or member not found.")
+            return
+        if book_id not in member.borrowed_books:
+            print(f"Member {member_id} did not borrow book {book_id}.")
+            return
+        ok, msg = book.return_book(member_id)
+        if ok:
+            member.borrowed_books.remove(book_id)
+            print("RETURN SUCCESS:", msg)
+        else:
+            print("RETURN FAILED:", msg)
+
+    def find_book(self, book_id):
+        return self.books.get(book_id)
+
+    def find_member(self, member_id):
+        return self.members.get(member_id)
+
+    def status(self):
+        print("\n-- Library Status --")
+        print("Books:")
+        for b in self.books.values():
+            print(f" {b.book_id}: {b.title} ({b.available_copies}/{b.total_copies}) borrowed_by={b.borrowed_by}")
+        print("Members:")
+        for m in self.members.values():
+            print(f" {m.member_id}: {m.name} active={m.active} borrowed={m.borrowed_books}")
+        print("---------------------\n")
+
+# --- Demonstration ---
+lib = Library()
+
+# Create books
+b1 = Book("B001", "Python Basics", "A. Author", total_copies=2, publication_year=2020)
+b2 = Book("B002", "Data Science", "B. Writer", total_copies=1, publication_year=2019)
+b3 = Book("B003", "Algorithms", "C. Algo", total_copies=1, publication_year=2018)
+
+# Add books to library
+lib.add_book(b1)
+lib.add_book(b2)
+lib.add_book(b3)
+
+# Create members
+m1 = Member("M001", "Alice", "alice@example.com")
+m2 = Member("M002", "Bob", "bob@example.com")
+
+# Register members
+lib.register_member(m1)
+lib.register_member(m2)
+
+# Simulate lending/returning
+lib.lend_book("B001", "M001")  # should succeed
+lib.lend_book("B001", "M002")  # may succeed if copies left
+lib.lend_book("B002", "M002")  # should succeed
+lib.lend_book("B002", "M001")  # fail — no copies
+
+# Return a book
+lib.receive_book("B001", "M001")  # success
+lib.receive_book("B003", "M002")  # fail — M002 didn't borrow B003
+
+# Final status
+lib.status()
+
+  Q3)3) Pandas grouping/aggregation + SciPy hypothesis tests (customer orders)
+  import pandas as pd
+from scipy import stats
+import numpy as np
+
+# Given order data
+order_data = {
+    'OrderID': [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+    'CustomerID': [1, 2, 1, 3, 2, 4, 1, 3, 4, 2],
+    'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'B', 'C', 'A'],
+    'Quantity': [2, 1, 3, 2, 2, 1, 3, 1, 2, 3],
+    'Price': [10.0, 15.0, 10.0, 20.0, 15.0, 10.0, 20.0, 15.0, 20.0, 10.0]
+}
+order_df = pd.DataFrame(order_data)
+
+# Add Revenue column (Quantity * Price)
+order_df['Revenue'] = order_df['Quantity'] * order_df['Price']
+print("Order DataFrame:\n", order_df, "\n")
+
+# 1) Total Revenue for each Product
+total_revenue_by_product = order_df.groupby('Product')['Revenue'].sum().sort_index()
+print("Total Revenue by Product:\n", total_revenue_by_product, "\n")
+
+# 2) Average Quantity ordered per CustomerID
+avg_qty_per_customer = order_df.groupby('CustomerID')['Quantity'].mean()
+print("Average Quantity per Customer:\n", avg_qty_per_customer, "\n")
+
+# 3) Product with highest total revenue
+top_product = total_revenue_by_product.idxmax()
+top_revenue = total_revenue_by_product.max()
+print(f"Product with highest total revenue: {top_product} (Revenue = {top_revenue})\n")
+
+# 4) t-test: Price of Product A vs Product B
+prices_A = order_df.loc[order_df['Product'] == 'A', 'Price']
+prices_B = order_df.loc[order_df['Product'] == 'B', 'Price']
+
+# Null hypothesis H0: mean(price_A) == mean(price_B)
+# Alternative H1: means differ
+t_stat, p_value = stats.ttest_ind(prices_A, prices_B, equal_var=False)  # Welch's t-test
+print("T-test (Price A vs B): t =", t_stat, ", p-value =", p_value)
+if p_value < 0.05:
+    print("→ Reject H0: significant difference in prices between A and B")
+else:
+    print("→ Fail to reject H0: no significant difference in prices between A and B")
+print()
+
+# 5) Chi-square test on Quantity distribution across Products
+# Build observed counts of quantities per product (we'll aggregate total quantity per product)
+observed = order_df.groupby('Product')['Quantity'].sum().reindex(sorted(order_df['Product'].unique()))
+observed_values = observed.values
+print("Observed total quantities per product:\n", observed, "\n")
+
+# For uniform expected distribution: expected counts are average of observed totals
+expected = np.full_like(observed_values, observed_values.mean())
+chi2_stat, chi2_p = stats.chisquare(f_obs=observed_values, f_exp=expected)
+print("Chi-square test: chi2 =", chi2_stat, ", p-value =", chi2_p)
+if chi2_p < 0.05:
+    print("→ Reject H0: distribution of quantities across products deviates from uniform")
+else:
+    print("→ Fail to reject H0: no evidence quantities differ from uniform distribution")
+
+          
+
